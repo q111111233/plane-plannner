@@ -1,0 +1,26 @@
+<h1>To Do List</h1>
+<h2>City: @Model["city"].GetDepartureCities()</h2>
+<hr />
+@if (@Model["cityFlights"].Count != 0)
+{
+  <h4>Here are all the flights in this city:</h4>
+  <ul>
+    @foreach (var flight in @Model["cityFlights"])
+    {
+      <li>@flight.GetStatus()</li>
+    }
+  </ul>
+}
+<h4>Add a flight to this city:</h4>
+<form action='/city/add_flight' method='post'>
+  <input id='city-id' name='city-id' type='hidden' value='@Model["city"].GetId()'>
+  <label for='flight-id'>Select a flight</label>
+  <select id='flight-id' name='flight-id' type='text'>
+    @foreach (var flight in @Model["allFlights"])
+    {
+      <option value='@flight.GetId()'>@flight.GetStatus()</option>
+    }
+  </select>
+  <button type='submit'>Add</button>
+</form>
+<p><a href="/">Return to Main Page</a></p>
